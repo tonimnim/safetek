@@ -53,6 +53,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "Leadership", href: "/leadership" },
       { label: "Work", href: "/#projects" },
       { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/#contact" },
