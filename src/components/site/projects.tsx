@@ -63,10 +63,11 @@ export function Projects() {
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const node = trackRef.current?.children[active] as
-      | HTMLElement
-      | undefined;
-    node?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const track = trackRef.current;
+    const node = track?.children[active] as HTMLElement | undefined;
+    if (!track || !node) return;
+    const left = node.offsetLeft - (track.clientWidth - node.clientWidth) / 2;
+    track.scrollTo({ left, behavior: "smooth" });
   }, [active]);
 
   return (
