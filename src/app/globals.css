@@ -58,6 +58,11 @@
   --animate-spin-slow: spin 18s linear infinite;
   --animate-marquee: marquee 32s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
+  --animate-drift: drift 22s ease-in-out infinite;
+  --animate-drift-reverse: drift-reverse 28s ease-in-out infinite;
+  --animate-wave-flow: wave-flow 38s linear infinite;
+  --animate-wave-bob-a: wave-bob-a 9s ease-in-out infinite;
+  --animate-wave-bob-b: wave-bob-b 13s ease-in-out infinite;
   --animate-gradient-x: gradient-x 8s ease-in-out infinite;
   --animate-shimmer: shimmer 2.4s linear infinite;
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -71,6 +76,32 @@
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
+}
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  25%  { transform: translate3d(28px, -22px, 0) scale(1.06); }
+  50%  { transform: translate3d(8px, -38px, 0) scale(0.98); }
+  75%  { transform: translate3d(-22px, -14px, 0) scale(1.03); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes drift-reverse {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  25%  { transform: translate3d(-24px, 18px, 0) scale(0.96); }
+  50%  { transform: translate3d(-32px, -8px, 0) scale(1.05); }
+  75%  { transform: translate3d(-12px, -22px, 0) scale(1); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes wave-flow {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes wave-bob-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -14px, 0); }
+}
+@keyframes wave-bob-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, 18px, 0); }
 }
 @keyframes gradient-x {
   0%, 100% { background-position: 0% 50%; }
@@ -299,6 +330,11 @@
     .animate-spin-slow,
     .animate-marquee,
     .animate-float,
+    .animate-drift,
+    .animate-drift-reverse,
+    .animate-wave-flow,
+    .animate-wave-bob-a,
+    .animate-wave-bob-b,
     .animate-gradient-x,
     .animate-shimmer,
     .text-gradient-brand,

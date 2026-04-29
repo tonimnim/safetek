@@ -177,17 +177,16 @@ function AboutHero() {
         </Reveal>
         <Reveal delay={120}>
           <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-[4.5rem]">
-            Building software in{" "}
-            <span className="text-gradient-brand">Nairobi</span> since 2021.
+            Building <span className="text-gradient-brand">software</span>{" "}
+            since 2021.
           </h1>
         </Reveal>
         <Reveal delay={200}>
           <p className="mt-6 max-w-2xl text-balance text-base leading-relaxed text-white/80 md:text-lg">
-            Safetek is a software and AI company headquartered in Nairobi,
-            Kenya. We build SaaS products for businesses across mobility,
-            logistics, and healthcare, and we work with teams developing their
-            own. Our software is used by hundreds of operators across the
-            region every day.
+            Safetek is a software and AI company. We build SaaS products for
+            businesses across mobility, logistics, and healthcare, and we work
+            with teams developing their own. Our software is used by hundreds
+            of operators every day.
           </p>
         </Reveal>
         <Reveal delay={280}>

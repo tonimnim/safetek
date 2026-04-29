@@ -6,6 +6,17 @@ import { toast } from "sonner";
 
 type Status = "idle" | "submitting" | "success";
 
+const LOOPS_FORM_ID = "cmokn61w20cqm0ix26cemqdfc";
+const LOOPS_ENDPOINT = `https://app.loops.so/api/newsletter-form/${LOOPS_FORM_ID}`;
+const RATE_LIMIT_KEY = "loops-form-timestamp";
+const RATE_LIMIT_MS = 60_000;
+
+function hasRecentSubmission() {
+  if (typeof window === "undefined") return false;
+  const previous = window.localStorage.getItem(RATE_LIMIT_KEY);
+  return previous ? Number(previous) + RATE_LIMIT_MS > Date.now() : false;
+}
+
 export function FooterNewsletter() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
@@ -13,41 +24,41 @@ export function FooterNewsletter() {
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!email.includes("@")) return;
-
-    const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-    if (!key) {
-      toast.error(
-        "Newsletter not configured yet. Reach us at hello@safetek.co.ke.",
-      );
+    if (hasRecentSubmission()) {
+      toast.error("Too many signups. Please try again in a moment.");
       return;
     }
 
     setStatus("submitting");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const body = `email=${encodeURIComponent(email)}&userGroup=&mailingLists=`;
+      const res = await fetch(LOOPS_ENDPOINT, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: key,
-          email,
-          subject: "Newsletter signup from safetek.co.ke",
-          from_name: "Safetek Newsletter",
-          message: `New newsletter subscriber: ${email}`,
-          botcheck: "",
-        }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
       });
+
+      if (res.status === 429) {
+        throw new Error("Too many signups. Please try again in a moment.");
+      }
+
       const data = (await res.json()) as { success: boolean; message?: string };
-      if (!data.success) throw new Error(data.message ?? "Subscription failed");
+      if (!data.success) {
+        throw new Error(data.message ?? "Couldn't subscribe. Try again.");
+      }
+
+      window.localStorage.setItem(RATE_LIMIT_KEY, Date.now().toString());
       setStatus("success");
       setEmail("");
       toast.success("You're on the list. We'll be in touch.");
       setTimeout(() => setStatus("idle"), 3000);
-    } catch {
+    } catch (err) {
       setStatus("idle");
-      toast.error("Couldn't subscribe. Please try again or email us.");
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Couldn't subscribe. Please try again.",
+      );
     }
   }
 

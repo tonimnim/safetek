@@ -36,6 +36,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Komiut", href: "/services/komiut" },
       { label: "K~Parcel", href: "/services/k-parcel" },
       { label: "Telemedicine", href: "/services/telemedicine" },
+      { label: "Cuesports Africa", href: "/services/cuesports-africa" },
       { label: "Saferoute", href: "/work/saferoute" },
     ],
   },

@@ -6,6 +6,7 @@ import {
   PiggyBank,
   Stethoscope,
   TrendingUp,
+  Trophy,
 } from "lucide-react";
 
 export type Service = {
@@ -20,6 +21,7 @@ export type Service = {
   deliverables: { title: string; description: string }[];
   outcomes: { value: string; label: string }[];
   gradient: string;
+  link?: { label: string; href: string };
 };
 
 export const services: Service[] = [
@@ -142,6 +144,47 @@ export const services: Service[] = [
       { value: "HIPAA-aligned", label: "Data handling" },
     ],
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+  },
+  {
+    slug: "cuesports-africa",
+    icon: Trophy,
+    tag: "Product",
+    title: "Cuesports Africa",
+    tagline: "A digital home for African cue sports",
+    description:
+      "Tournaments, rankings, players, and venues for the African snooker, pool, and billiards community — in one place.",
+    longDescription:
+      "Cuesports Africa brings the continent's cue sports community online. Organizers list tournaments, players register and track their rankings, and clubs get profile pages that make the scene navigable.",
+    highlights: [
+      "Tournament listings and registration",
+      "Player profiles and head-to-head stats",
+      "Continental and national rankings",
+      "Venue and club directory",
+    ],
+    deliverables: [
+      {
+        title: "Tournament platform",
+        description:
+          "Organizers create tournaments, players register, brackets generate automatically.",
+      },
+      {
+        title: "Rankings engine",
+        description:
+          "National and continental rankings updated as matches conclude.",
+      },
+      {
+        title: "Community profiles",
+        description:
+          "Player profiles, club pages, and venue listings.",
+      },
+    ],
+    outcomes: [
+      { value: "Pan-African", label: "Reach" },
+      { value: "Live", label: "Rankings" },
+      { value: "All disciplines", label: "Cue sports" },
+    ],
+    gradient: "from-emerald-600 via-green-500 to-amber-400",
+    link: { label: "Visit cuesports.africa", href: "https://cuesports.africa/" },
   },
   {
     slug: "digital-marketing",

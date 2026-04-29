@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { Badge } from "@/components/ui/badge";
@@ -91,7 +91,7 @@ export default async function ServicePage({
                   </p>
                 </Reveal>
                 <Reveal delay={240}>
-                  <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <Button
                       asChild
                       size="lg"
@@ -102,6 +102,23 @@ export default async function ServicePage({
                         <ArrowRight className="ml-1 h-4 w-4" />
                       </Link>
                     </Button>
+                    {service.link ? (
+                      <Button
+                        asChild
+                        size="lg"
+                        variant="outline"
+                        className="rounded-full"
+                      >
+                        <a
+                          href={service.link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {service.link.label}
+                          <ExternalLink className="ml-1 h-4 w-4" />
+                        </a>
+                      </Button>
+                    ) : null}
                     <Button
                       asChild
                       size="lg"
