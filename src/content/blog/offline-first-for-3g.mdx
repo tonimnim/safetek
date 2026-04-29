@@ -1,0 +1,47 @@
+export const metadata = {
+  title: "Offline-first when your users live on 3G",
+  excerpt:
+    "Notes from rebuilding the Komiut driver app for phones that lose signal in tunnels and stadiums.",
+  date: "2026-04-22",
+  author: "Engineering",
+  tags: ["engineering", "mobile"],
+  readingTime: 7,
+};
+
+When we shipped the first version of the Komiut driver app, we made an assumption that quietly cost us six months: that drivers would have a working data connection when they needed it.
+
+They don't. They drive through tunnels. They park in basements. They wait at the depot in a Faraday cage of corrugated iron. Whatever they're doing in your app at that moment has to keep working — or they'll close it and write the trip down on paper.
+
+This post is about what we learned rebuilding for that constraint.
+
+## The 3-state mental model
+
+Forget "online" and "offline." Think in three states:
+
+1. **Confident online.** Recent successful network round-trip. Treat as live.
+2. **Maybe online.** Last successful round-trip was more than 30 seconds ago. Show a soft indicator. Queue writes.
+3. **Confidently offline.** Multiple failed attempts. Hide network-dependent UI entirely. All writes go to the queue.
+
+The third state is the one most apps get wrong. They keep showing buttons that don't work, then surface a "couldn't connect" toast after the user taps. By then trust is already broken.
+
+## Sync is a queue, not a database mirror
+
+We tried to be clever the first time. We built a CRDT-backed local store that mirrored the server state. It was beautiful. It was also wrong — because the conflicts that mattered (two drivers claiming the same passenger, two conductors closing the same shift) had business rules that didn't fit a generic CRDT.
+
+The second time, we built a queue. Every action a driver takes — accept passenger, close shift, mark trip complete — is appended to a local queue with a UUID and a timestamp. The queue drains to the server in order. The server is the source of truth. Conflicts are resolved server-side with explicit business rules.
+
+> Local optimism for reads. Pessimistic queue for writes. Server is canonical.
+
+That model is much easier to reason about, especially when something goes wrong.
+
+## The boring stuff that mattered most
+
+- **Compress aggressively.** Pixel for pixel, our biggest win was running gzip + brotli over our JSON sync payloads. 3G doesn't care about your beautiful indexes.
+- **Background sync needs a guardrail.** We got rate-limited by our own backend the first time we shipped retry-with-backoff. Cap retries per session.
+- **Lie to the user, gently.** When a driver taps "complete trip," we mark it complete in the UI immediately and queue the write. If the queue ever fails to drain, we surface it on the dashboard, not in their face.
+
+## What we'd do differently
+
+If we were starting again, we'd ship the queue-based architecture from day one and skip the CRDT phase entirely. Optimistic-but-honest UI is most of what users need. Save the fancy stuff for problems that actually require it.
+
+If you're building for similar conditions and want to compare notes, [get in touch](/#contact).

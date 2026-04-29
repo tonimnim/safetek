@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const nav = [
-  { href: "#services", label: "Services" },
-  { href: "#process", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#testimonials", label: "Testimonials" },
+  { href: "/#services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
+  { href: "/#testimonials", label: "Testimonials" },
 ];
 
 export function SiteHeader() {
@@ -64,7 +65,7 @@ export function SiteHeader() {
             size="sm"
             className="hidden h-8 rounded-full bg-white px-4 text-[13px] text-black hover:bg-white/90 md:inline-flex"
           >
-            <Link href="#contact">Contact</Link>
+            <Link href="/#contact">Contact</Link>
           </Button>
           <button
             type="button"
@@ -94,7 +95,7 @@ export function SiteHeader() {
               asChild
               className="mt-2 w-full rounded-full bg-brand text-white hover:bg-brand/90"
             >
-              <Link href="#contact" onClick={() => setOpen(false)}>
+              <Link href="/#contact" onClick={() => setOpen(false)}>
                 Contact Us
               </Link>
             </Button>

@@ -1,0 +1,52 @@
+export const metadata = {
+  title: "How we halved a client's cloud bill in eight weeks",
+  excerpt:
+    "No magic. Just a spreadsheet, a stopwatch, and a willingness to delete things.",
+  date: "2026-04-15",
+  author: "Infrastructure",
+  tags: ["infrastructure", "cost"],
+  readingTime: 5,
+};
+
+A client came to us with a $14,200 monthly AWS bill and a feature shipped in 2022 that they couldn't quite kill. Eight weeks later they were paying $6,800. They didn't lose any features. Latency improved. Here's how.
+
+## Step 1 — get the bill into a spreadsheet
+
+This sounds dumb. It's not. The AWS console is optimized for upselling. You need every line item, in one place, sorted by spend, with last-month comparisons. Cost Explorer's CSV export plus thirty minutes in a spreadsheet beats every dashboard tool we've tried.
+
+Once it's there, the work is mechanical:
+
+1. Anything over $200/month gets a name on it.
+2. The named owner has 48 hours to justify it.
+3. Anything unjustified or unowned is a candidate for deletion.
+
+About 30% of their bill failed step 2.
+
+## Step 2 — kill the zombies
+
+Top categories of waste, in order:
+
+- **Idle EC2.** Three instances running staging environments nobody had touched in months. Snapshot, stop, document, schedule deletion in 30 days.
+- **NAT Gateway egress.** A misrouted internal service was sending traffic out to the internet and back in. $1,800/month, fixed in an afternoon by a VPC endpoint.
+- **Old EBS snapshots.** Years of automated snapshots, none of them tied to a retention policy. We didn't delete them; we tagged the lot for cold storage. ~$400/month saved.
+- **CloudWatch logs.** Default retention was "forever." Almost nothing actually needed more than 30 days. ~$300/month.
+
+## Step 3 — right-size the survivors
+
+Anything that survived step 2 got an honest look at utilization. Most of their production EC2 was running on burstable instances at 8% CPU. Some were genuinely undersized. A few we replaced with Fargate where the load was bursty.
+
+Right-sizing isn't sexy and the wins per change are small, but added up across a fleet it's the third-biggest line item we touched.
+
+## Step 4 — commit, but only to what's stable
+
+Reserved Instances and Savings Plans are great if your workload is predictable, terrible if it isn't. We modeled their last 12 months of usage, identified the floor — the load they always carry — and bought 3-year Compute Savings Plans for that floor only. About 35% of compute spend, locked in at a 40% discount.
+
+The rest stayed on-demand. We didn't try to commit to growth they hadn't booked.
+
+## What we didn't do
+
+We didn't migrate frameworks. We didn't change their cloud provider. We didn't restructure their team. We didn't sell them an observability platform.
+
+The savings came from boring blocking-and-tackling work that any engineer could do, but that nobody had time to do.
+
+If your bill has crept up and you suspect it shouldn't have, that's our [Saving Strategy](/services/saving-strategy) engagement in a nutshell. The first 30 days is just spreadsheet work, and you'll know by then how much there is to save.

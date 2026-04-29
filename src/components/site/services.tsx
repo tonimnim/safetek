@@ -1,76 +1,9 @@
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Bus,
-  Package,
-  Stethoscope,
-  Megaphone,
-  TrendingUp,
-  PiggyBank,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "./reveal";
 import { cn } from "@/lib/utils";
-
-type Service = {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  tag: string;
-  href: string;
-};
-
-const services: Service[] = [
-  {
-    icon: Bus,
-    tag: "Product",
-    title: "Komiut",
-    description:
-      "End-to-end transport management system that digitizes fleets, ticketing, and operations for transit operators.",
-    href: "#",
-  },
-  {
-    icon: Package,
-    tag: "Product",
-    title: "K~Parcel",
-    description:
-      "GPS-powered delivery tracking with live route visibility, proof of delivery, and customer notifications.",
-    href: "#",
-  },
-  {
-    icon: Stethoscope,
-    tag: "Product",
-    title: "Telemedicine",
-    description:
-      "Connect patients to clinicians anywhere — secure video consults, prescriptions, and patient records.",
-    href: "#",
-  },
-  {
-    icon: Megaphone,
-    tag: "Service",
-    title: "Digital Marketing",
-    description:
-      "Performance-driven campaigns, SEO, and content that turn visitors into customers across every channel.",
-    href: "#",
-  },
-  {
-    icon: TrendingUp,
-    tag: "Service",
-    title: "Growth Strategy",
-    description:
-      "Data-led growth playbooks built around your funnel — onboarding, retention, and monetization.",
-    href: "#",
-  },
-  {
-    icon: PiggyBank,
-    tag: "Service",
-    title: "Saving Strategy",
-    description:
-      "Cost engineering for cloud, infra, and tooling — measurable savings without compromising velocity.",
-    href: "#",
-  },
-];
+import { services, type Service } from "@/content/services";
 
 export function Services() {
   return (
@@ -100,7 +33,7 @@ export function Services() {
 
         <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
-            <Reveal key={s.title} delay={i * 70}>
+            <Reveal key={s.slug} delay={i * 70}>
               <ServiceCard service={s} index={i} />
             </Reveal>
           ))}
@@ -114,7 +47,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   const Icon = service.icon;
   return (
     <Link
-      href={service.href}
+      href={`/services/${service.slug}`}
       className={cn(
         "group hover-lift relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-white p-6",
       )}

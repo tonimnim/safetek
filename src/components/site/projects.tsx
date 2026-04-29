@@ -1,62 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./reveal";
 import { cn } from "@/lib/utils";
-
-type Project = {
-  title: string;
-  category: string;
-  blurb: string;
-  gradient: string;
-  emoji: string;
-};
-
-const projects: Project[] = [
-  {
-    title: "Komiut Driver",
-    category: "Mobility",
-    blurb:
-      "Operator app for matatu and bus drivers — routes, passengers, and earnings in one place.",
-    gradient: "from-orange-500 via-amber-500 to-rose-500",
-    emoji: "🚌",
-  },
-  {
-    title: "K~Parcel Live",
-    category: "Logistics",
-    blurb:
-      "Real-time delivery dashboard with live GPS, ETAs, and proof of delivery for couriers.",
-    gradient: "from-blue-500 via-sky-500 to-cyan-400",
-    emoji: "📦",
-  },
-  {
-    title: "TeleCare",
-    category: "Healthcare",
-    blurb:
-      "Secure video consults, prescriptions, and digital records for clinicians and patients.",
-    gradient: "from-emerald-500 via-teal-500 to-cyan-500",
-    emoji: "🩺",
-  },
-  {
-    title: "Komiut Admin",
-    category: "Mobility",
-    blurb:
-      "Operations console for fleet owners — performance, finances, and compliance at a glance.",
-    gradient: "from-violet-500 via-fuchsia-500 to-pink-500",
-    emoji: "📊",
-  },
-  {
-    title: "Saferoute",
-    category: "Mapping",
-    blurb:
-      "Routing engine that ranks paths by safety, traffic, and time — built for African cities.",
-    gradient: "from-amber-500 via-orange-500 to-red-500",
-    emoji: "🗺️",
-  },
-];
+import { projects } from "@/content/work";
 
 export function Projects() {
   const [active, setActive] = useState(0);
@@ -128,11 +79,12 @@ export function Projects() {
             style={{ scrollbarWidth: "none" }}
           >
             {projects.map((p, i) => (
-              <article
-                key={p.title}
+              <Link
+                key={p.slug}
+                href={`/work/${p.slug}`}
                 className={cn(
                   "snap-center transition-all duration-500",
-                  "flex w-[80%] flex-none flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur md:w-[420px]",
+                  "group flex w-[80%] flex-none flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur md:w-[420px]",
                   active === i ? "scale-100 opacity-100" : "scale-95 opacity-70",
                 )}
               >
@@ -152,7 +104,7 @@ export function Projects() {
                   <h3 className="mt-2 text-xl font-semibold">{p.title}</h3>
                   <p className="mt-2 text-sm text-white/70">{p.blurb}</p>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </Reveal>
@@ -161,7 +113,7 @@ export function Projects() {
           <div className="flex items-center gap-2">
             {projects.map((p, i) => (
               <button
-                key={p.title}
+                key={p.slug}
                 aria-label={`Go to ${p.title}`}
                 onClick={() => setActive(i)}
                 className={cn(
