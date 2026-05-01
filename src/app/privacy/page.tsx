@@ -6,9 +6,10 @@ import { SiteFooter } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
 
 export const metadata: Metadata = {
-  title: "Privacy policy — Safetek",
+  title: "Privacy policy",
   description:
-    "How Safetek Systems collects, uses, and protects information across our website and products.",
+    "How Safetek Systems Ltd collects, uses, and protects personal information. Compliance with the Kenya Data Protection Act, 2019.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

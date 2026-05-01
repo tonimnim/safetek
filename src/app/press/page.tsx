@@ -8,9 +8,25 @@ import { SiteFooter } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
 
 export const metadata: Metadata = {
-  title: "Press kit — Safetek",
+  title: "Press kit — Boilerplate, brand assets, and media contact",
   description:
-    "Boilerplate, brand assets, and contact details for journalists and partners writing about Safetek.",
+    "Press kit for Safetek Systems Ltd — Nairobi-based software and AI company. Boilerplate, brand assets, founder details, and media contact for journalists writing about African tech.",
+  alternates: { canonical: "/press" },
+  keywords: [
+    "Safetek press kit",
+    "Safetek media",
+    "Safetek brand assets",
+    "African tech press",
+    "Kenya software company press",
+    "Samuel Ndegwa Safetek",
+  ],
+  openGraph: {
+    title: "Safetek press kit — Brand assets and media contact",
+    description:
+      "Boilerplate, brand assets, and media contact for journalists writing about Safetek.",
+    url: "/press",
+    type: "website",
+  },
 };
 
 const facts = [

@@ -8,9 +8,27 @@ import { SiteFooter } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
 
 export const metadata: Metadata = {
-  title: "Careers — Safetek",
+  title: "Careers — Engineering, AI, and product roles at Safetek",
   description:
-    "Open roles, hiring philosophy, and how to reach us if you want to build with Safetek.",
+    "Build with Safetek in Nairobi. Engineering, AI, mobile, product, and operations roles for builders who want to ship software used by hundreds of operators across Africa.",
+  alternates: { canonical: "/careers" },
+  keywords: [
+    "Safetek careers",
+    "software engineer jobs Nairobi",
+    "AI engineer jobs Kenya",
+    "tech jobs Nairobi",
+    "developer jobs Kenya",
+    "mobile engineer Nairobi",
+    "remote engineering jobs Africa",
+    "tech careers Kenya",
+  ],
+  openGraph: {
+    title: "Careers at Safetek — Build with us",
+    description:
+      "Engineering, AI, and product roles at a Nairobi-based software & AI company shipping products used across Africa.",
+    url: "/careers",
+    type: "website",
+  },
 };
 
 const principles = [

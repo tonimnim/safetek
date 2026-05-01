@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/reveal";
 import { getPostSlugs, type PostMetadata } from "@/lib/blog";
+import { siteConfig } from "@/lib/seo";
 
 type PostModule = {
   default: ComponentType;
@@ -36,9 +37,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await loadPost(slug);
   if (!post) return { title: "Post not found" };
+  const url = `/blog/${slug}`;
   return {
-    title: `${post.metadata.title} — Safetek journal`,
+    title: post.metadata.title,
     description: post.metadata.excerpt,
+    keywords: [...post.metadata.tags, ...siteConfig.keywords.slice(0, 30)],
+    alternates: { canonical: url },
+    openGraph: {
+      title: post.metadata.title,
+      description: post.metadata.excerpt,
+      url,
+      type: "article",
+      publishedTime: post.metadata.date,
+      authors: [post.metadata.author],
+      tags: post.metadata.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.metadata.title,
+      description: post.metadata.excerpt,
+    },
   };
 }
 
@@ -63,8 +81,38 @@ export default async function BlogPostPage({
   const PostBody = post.default;
   const { metadata: m } = post;
 
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: m.title,
+    description: m.excerpt,
+    datePublished: m.date,
+    dateModified: m.date,
+    author: { "@type": "Person", name: m.author },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/opengraph-image`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/blog/${slug}`,
+    },
+    keywords: m.tags.join(", "),
+    inLanguage: "en",
+    timeRequired: `PT${m.readingTime}M`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
       <SiteHeader />
       <main className="flex flex-1 flex-col bg-background">
         <section className="bg-section-cream">

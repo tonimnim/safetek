@@ -8,9 +8,17 @@ import { Reveal } from "@/components/site/reveal";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Journal — Safetek",
+  title: "Journal — Safetek engineering, AI, and product notes",
   description:
-    "Notes from the Safetek team on engineering at the edge of the network, product on tight budgets, and infrastructure that earns its keep.",
+    "Engineering and product notes from the Safetek team. Posts on M-Pesa integration, offline-first mobile apps, cloud cost engineering, AI in production, and building software for African networks.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Safetek Journal — engineering, AI, and product notes",
+    description:
+      "Engineering and product notes from the Safetek team. Building software for African networks, M-Pesa integration, AI in production, and cloud cost engineering.",
+    url: "/blog",
+    type: "website",
+  },
 };
 
 function formatDate(iso: string): string {

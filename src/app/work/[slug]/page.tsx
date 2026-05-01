@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 import { getProjectBySlug, projects } from "@/content/work";
+import { siteConfig } from "@/lib/seo";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -22,9 +23,31 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return { title: "Project not found" };
+  const url = `/work/${slug}`;
   return {
-    title: `${project.title} — Safetek work`,
-    description: project.blurb,
+    title: `${project.title} — Case study`,
+    description: `${project.blurb} ${project.longDescription.slice(0, 120)}`,
+    keywords: [
+      project.title,
+      project.category,
+      `${project.category} software`,
+      `${project.category} ${project.client}`,
+      ...project.technologies,
+      ...project.highlights,
+      ...siteConfig.keywords.slice(0, 20),
+    ],
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${project.title} — Safetek case study`,
+      description: project.blurb,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Safetek case study`,
+      description: project.blurb,
+    },
   };
 }
 
@@ -47,8 +70,34 @@ export default async function WorkPage({
     { label: "Role", value: project.role },
   ];
 
+  const workLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.longDescription,
+    abstract: project.blurb,
+    creator: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    about: project.category,
+    keywords: [...project.technologies, ...project.highlights].join(", "),
+    dateCreated: project.year,
+    url: `${siteConfig.url}/work/${slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/work/${slug}`,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(workLd) }}
+      />
       <SiteHeader />
       <main className="flex flex-1 flex-col bg-[#0e0907] text-white">
         <section className="relative overflow-hidden bg-[#100806]">

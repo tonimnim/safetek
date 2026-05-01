@@ -6,9 +6,10 @@ import { SiteFooter } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
 
 export const metadata: Metadata = {
-  title: "Terms of use — Safetek",
+  title: "Terms of use",
   description:
-    "The terms governing your use of the Safetek website and any associated content.",
+    "Terms governing use of safetek.co.ke and related content. Governing law: Kenya.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

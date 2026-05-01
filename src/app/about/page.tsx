@@ -20,9 +20,17 @@ import { AboutNumberCard } from "@/components/site/about-number-card";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Our story — Safetek",
+  title: "About Safetek — Software & AI company in Nairobi, Kenya",
   description:
-    "Safetek is a Nairobi-built SaaS and AI company. We ship secure, scalable software and AI-native products for businesses across Africa and beyond.",
+    "Safetek is a software and AI company headquartered in Nairobi, Kenya. Founded in 2021. We build SaaS products for mobility, logistics, and healthcare across Africa, and partner with teams developing their own. Specialists in M-Pesa integration, fleet management, telemedicine, and AI engineering.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Safetek — Software & AI company in Nairobi, Kenya",
+    description:
+      "Safetek is a software and AI company headquartered in Nairobi, Kenya. Founded in 2021. We build SaaS products for mobility, logistics, and healthcare across Africa.",
+    url: "/about",
+    type: "website",
+  },
 };
 
 const stats = [

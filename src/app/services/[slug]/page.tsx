@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 import { getServiceBySlug, services } from "@/content/services";
+import { siteConfig } from "@/lib/seo";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -22,9 +23,29 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = getServiceBySlug(slug);
   if (!service) return { title: "Service not found" };
+  const url = `/services/${slug}`;
   return {
-    title: `${service.title} — Safetek`,
-    description: service.description,
+    title: `${service.title} — ${service.tag === "Product" ? "Safetek product" : "Safetek service"}`,
+    description: `${service.tagline}. ${service.description}`,
+    keywords: [
+      service.title,
+      `${service.title} Kenya`,
+      `${service.title} Africa`,
+      ...service.highlights,
+      ...siteConfig.keywords.slice(0, 25),
+    ],
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${service.title} — ${siteConfig.name}`,
+      description: service.description,
+      url,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} — ${siteConfig.name}`,
+      description: service.description,
+    },
   };
 }
 
@@ -42,8 +63,44 @@ export default async function ServicePage({
   const taglineLead = taglineWords.slice(0, -1).join(" ");
   const taglineTail = taglineWords.slice(-1)[0];
 
+  const serviceLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.longDescription,
+    serviceType: service.title,
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    areaServed: [
+      { "@type": "Country", name: "Kenya" },
+      { "@type": "Continent", name: "Africa" },
+    ],
+    url: `${siteConfig.url}/services/${slug}`,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `${service.title} deliverables`,
+      itemListElement: service.deliverables.map((d, i) => ({
+        "@type": "Offer",
+        position: i + 1,
+        itemOffered: {
+          "@type": "Service",
+          name: d.title,
+          description: d.description,
+        },
+      })),
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }}
+      />
       <SiteHeader />
       <main className="flex flex-1 flex-col bg-background">
         <section className="bg-section-cream">

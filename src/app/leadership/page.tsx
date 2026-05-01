@@ -6,148 +6,56 @@ import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { Reveal } from "@/components/site/reveal";
+import { LeadershipCard } from "@/components/site/leadership-card";
+import { team } from "@/content/leadership";
+import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Leadership — Safetek",
+  title: "Leadership — Founders and operators behind Safetek",
   description:
-    "The people running Safetek. Founders and operators behind the products and engagements.",
+    "Meet the team running Safetek. Founder Samuel Ndegwa and the engineers, project managers, and designers building software products and AI for businesses across Africa.",
+  alternates: { canonical: "/leadership" },
+  openGraph: {
+    title: "Safetek leadership — Founders and operators",
+    description:
+      "Founder Samuel Ndegwa and the team building Safetek's software products and AI services for businesses across Africa.",
+    url: "/leadership",
+    type: "website",
+  },
 };
 
-type Member = {
-  name: string;
-  title: string;
-  bio: string;
-  photo: string;
-  tags: string[];
-  linkedin?: string;
+const leadershipLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: team.map((m, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Person",
+      name: m.name,
+      jobTitle: m.title,
+      description: m.bio,
+      worksFor: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      image: m.photo.startsWith("http")
+        ? m.photo
+        : `${siteConfig.url}${m.photo}`,
+      knowsAbout: m.tags,
+    },
+  })),
 };
-
-const team: Member[] = [
-  {
-    name: "Samuel Ndegwa",
-    title: "Founder & CEO",
-    bio: "Founded Safetek in 2021. Leads strategy, partnerships, and the relationships behind every engagement.",
-    photo: "https://i.pravatar.cc/600?img=12",
-    tags: ["Strategy", "Partnerships"],
-    linkedin: "#",
-  },
-  {
-    name: "Millicent",
-    title: "Project Manager",
-    bio: "Runs delivery across every engagement. Turns client needs into shipped work and keeps the team focused on what's next.",
-    photo: "https://i.pravatar.cc/600?img=49",
-    tags: ["Delivery", "Process"],
-    linkedin: "#",
-  },
-  {
-    name: "Mary Lyne",
-    title: "Head of Operations & Design",
-    bio: "Owns operations and product design. Where the company's polish — internal and external — comes from.",
-    photo: "https://i.pravatar.cc/600?img=26",
-    tags: ["Operations", "Design"],
-    linkedin: "#",
-  },
-  {
-    name: "Eric",
-    title: "Head of Engineering",
-    bio: "Leads engineering. Owns architecture and the technical decisions behind every product Safetek ships.",
-    photo: "https://i.pravatar.cc/600?img=33",
-    tags: ["Backend", "Architecture"],
-    linkedin: "#",
-  },
-  {
-    name: "Anthony Mwangi",
-    title: "Software Engineer (Mobile)",
-    bio: "Builds mobile apps and contributes across backend and frontend systems. Closest to the device, where most users meet the work.",
-    photo: "https://i.pravatar.cc/600?img=51",
-    tags: ["Mobile", "Frontend"],
-    linkedin: "#",
-  },
-];
-
-function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
-      <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5v-9h3v9ZM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75ZM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66Z" />
-    </svg>
-  );
-}
-
-function LeadershipCard({ member, index }: { member: Member; index: number }) {
-  return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/50 bg-white transition-all duration-500 hover:-translate-y-1 hover:border-brand/30 hover:shadow-[0_30px_60px_-20px_rgba(232,90,39,0.25)]">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-      />
-
-      <div className="relative aspect-[4/5] overflow-hidden bg-muted">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={member.photo}
-          alt={member.name}
-          className="h-full w-full object-cover saturate-[1.05] transition-all duration-[900ms] group-hover:scale-[1.06] group-hover:saturate-[1.15]"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-brand/30 via-brand/0 to-transparent opacity-0 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-100"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent"
-        />
-        <span className="absolute right-4 top-4 rounded-full bg-black/35 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur">
-          / 0{index + 1}
-        </span>
-      </div>
-
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex items-center gap-3">
-          <span aria-hidden className="h-px w-6 bg-brand" />
-          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-brand">
-            {member.title}
-          </p>
-        </div>
-
-        <h3 className="mt-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-          {member.name}
-        </h3>
-
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-          {member.bio}
-        </p>
-
-        <div className="mt-6 flex items-center justify-between border-t border-border/40 pt-4">
-          <div className="flex flex-wrap gap-1.5">
-            {member.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-foreground/[0.04] px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          {member.linkedin ? (
-            <a
-              href={member.linkedin}
-              aria-label={`${member.name} on LinkedIn`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-brand/5 hover:text-brand"
-            >
-              <LinkedinIcon className="h-4 w-4" />
-            </a>
-          ) : null}
-        </div>
-      </div>
-    </article>
-  );
-}
 
 export default function LeadershipPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(leadershipLd) }}
+      />
       <SiteHeader />
       <main className="flex flex-1 flex-col">
         <section className="relative overflow-hidden bg-section-cream">
@@ -198,8 +106,30 @@ export default function LeadershipPage() {
           </div>
         </section>
 
-        <section className="bg-background">
-          <div className="mx-auto w-full max-w-6xl px-6 py-14 sm:px-8 md:px-12 md:py-20 lg:px-16">
+        <section className="relative overflow-hidden bg-[#100806] text-white">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.10]"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+              maskImage:
+                "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-32 right-[-10%] h-[500px] w-[500px] animate-drift rounded-full bg-[radial-gradient(circle,rgba(255,136,0,0.22),transparent_60%)] blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-[-20%] left-[-10%] h-[420px] w-[420px] animate-drift-reverse rounded-full bg-[radial-gradient(circle,rgba(232,90,39,0.28),transparent_60%)] blur-3xl"
+          />
+
+          <div className="relative mx-auto w-full max-w-6xl px-6 py-16 sm:px-8 md:px-12 md:py-24 lg:px-16">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {team.map((member, i) => (
                 <Reveal key={member.name} delay={i * 70}>
