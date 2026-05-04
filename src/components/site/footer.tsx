@@ -91,7 +91,7 @@ export function SiteFooter() {
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
               Software and AI for businesses across Africa. Built in Nairobi
-              since 2021.
+              since 2018.
             </p>
             <div className="mt-5 flex items-center gap-2 text-xs text-muted-foreground">
               <MapPin className="h-3.5 w-3.5 text-brand" />

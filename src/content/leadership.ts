@@ -11,7 +11,7 @@ export const team: Member[] = [
   {
     name: "Samuel Ndegwa",
     title: "Founder & CEO",
-    bio: "Founded Safetek in 2021. Leads strategy, partnerships, and the relationships behind every engagement.",
+    bio: "Founded Safetek in 2018. Leads strategy, partnerships, and the relationships behind every engagement.",
     photo: "https://i.pravatar.cc/600?img=12",
     tags: ["Strategy", "Partnerships"],
     linkedin: "#",

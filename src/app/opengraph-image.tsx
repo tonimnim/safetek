@@ -88,7 +88,7 @@ export default async function Image() {
             }}
           >
             Software and AI for businesses across Africa. Built in Nairobi
-            since 2021.
+            since 2018.
           </div>
         </div>
 

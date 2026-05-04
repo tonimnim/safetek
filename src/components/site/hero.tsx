@@ -37,7 +37,7 @@ export function Hero() {
               <span className="absolute inset-0 animate-ping rounded-full bg-brand/70" />
               <span className="relative h-1.5 w-1.5 rounded-full bg-brand" />
             </span>
-            Software & AI · Since 2021
+            Software & AI · Since 2018
           </div>
         </Reveal>
 

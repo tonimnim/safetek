@@ -22,19 +22,19 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "About Safetek — Software & AI company in Nairobi, Kenya",
   description:
-    "Safetek is a software and AI company headquartered in Nairobi, Kenya. Founded in 2021. We build SaaS products for mobility, logistics, and healthcare across Africa, and partner with teams developing their own. Specialists in M-Pesa integration, fleet management, telemedicine, and AI engineering.",
+    "Safetek is a software and AI company headquartered in Nairobi, Kenya. Founded in 2018. We build SaaS products for mobility, logistics, and healthcare across Africa, and partner with teams developing their own. Specialists in M-Pesa integration, fleet management, telemedicine, and AI engineering.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About Safetek — Software & AI company in Nairobi, Kenya",
     description:
-      "Safetek is a software and AI company headquartered in Nairobi, Kenya. Founded in 2021. We build SaaS products for mobility, logistics, and healthcare across Africa.",
+      "Safetek is a software and AI company headquartered in Nairobi, Kenya. Founded in 2018. We build SaaS products for mobility, logistics, and healthcare across Africa.",
     url: "/about",
     type: "website",
   },
 };
 
 const stats = [
-  { end: 2021, label: "Founded in" },
+  { end: 2018, label: "Founded in" },
   { end: 15, suffix: "+", label: "Products shipped" },
   { end: 200, suffix: "+", label: "Clients served" },
   { end: 7, label: "Industries served" },
@@ -42,7 +42,7 @@ const stats = [
 
 const milestones = [
   {
-    year: "2021",
+    year: "2018",
     title: "Two engineers, one room",
     body: "Started in a Nairobi co-working space with a stubborn belief: African software shouldn't be a port of something built for somewhere else.",
   },
@@ -186,7 +186,7 @@ function AboutHero() {
         <Reveal delay={120}>
           <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-[4.5rem]">
             Building <span className="text-gradient-brand">software</span>{" "}
-            since 2021.
+            since 2018.
           </h1>
         </Reveal>
         <Reveal delay={200}>
@@ -227,7 +227,7 @@ function AboutHero() {
             </div>
             <span className="hidden h-4 w-px bg-white/20 sm:block" />
             <span>
-              <span className="font-semibold text-white">Since 2021</span> ·
+              <span className="font-semibold text-white">Since 2018</span> ·
               independent
             </span>
             <span className="hidden h-4 w-px bg-white/20 sm:block" />

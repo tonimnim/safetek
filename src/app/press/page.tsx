@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 const facts = [
-  { label: "Founded", value: "2021" },
+  { label: "Founded", value: "2018" },
   { label: "Headquarters", value: "Nairobi, Kenya" },
   { label: "Industry", value: "Software & AI" },
   { label: "Sectors", value: "Mobility, logistics, healthcare" },
@@ -75,7 +75,7 @@ export default function PressPage() {
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
                   Safetek Systems Ltd is a software and AI company
-                  headquartered in Nairobi, Kenya. Founded in 2021, Safetek
+                  headquartered in Nairobi, Kenya. Founded in 2018, Safetek
                   builds SaaS products for businesses across mobility,
                   logistics, and healthcare, and provides engineering and AI
                   consultancy services to teams developing their own. Its

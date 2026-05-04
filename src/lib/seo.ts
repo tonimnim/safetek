@@ -5,7 +5,7 @@ export const siteConfig = {
   ogImagePath: "/opengraph-image",
   twitter: "@safetek",
   locale: "en_KE",
-  founded: "2021",
+  founded: "2018",
   email: "hello@safetek.co.ke",
   city: "Nairobi",
   country: "Kenya",
@@ -13,7 +13,7 @@ export const siteConfig = {
   description:
     "Safetek is a software and AI company headquartered in Nairobi, Kenya. We build SaaS products for businesses across mobility, logistics, and healthcare — and partner with teams developing their own. Used by hundreds of operators every day.",
   shortDescription:
-    "Software and AI for businesses across Africa. Built in Nairobi since 2021.",
+    "Software and AI for businesses across Africa. Built in Nairobi since 2018.",
   keywords: [
     "Safetek",
     "Safetek Systems",
