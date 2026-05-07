@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SafetekLogo } from "./safetek-logo";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -40,10 +41,7 @@ export function SiteHeader() {
           className="ml-2 flex items-center gap-2 text-white"
           aria-label="Safetek home"
         >
-          <span className="relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand text-brand-foreground">
-            <span className="absolute inset-0 animate-ping rounded-full bg-brand/30" />
-            <span className="relative h-1.5 w-1.5 rounded-full bg-white" />
-          </span>
+          <SafetekLogo variant="dark" className="h-7 w-7" />
           <span className="text-sm font-semibold tracking-tight">Safetek</span>
         </Link>
 

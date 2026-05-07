@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { FooterNewsletter } from "./footer-newsletter";
+import { SafetekLogo } from "./safetek-logo";
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -82,9 +83,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-2">
             <Link href="/" className="flex items-center gap-2">
-              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand text-brand-foreground">
-                <span className="h-2 w-2 rounded-full bg-white" />
-              </span>
+              <SafetekLogo className="h-7 w-7" />
               <span className="text-base font-semibold tracking-tight">
                 Safetek
               </span>
